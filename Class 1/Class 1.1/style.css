@@ -1,0 +1,51 @@
+body{
+    background-color: #0d1117;
+    color: white;
+}
+
+.nav{
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav span{
+    font-weight: 550;
+    font-size: 20px;
+}
+
+.nav a{
+    color: gray;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.ver{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.ver a{
+    color: lightseagreen;
+}
+
+.final{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+.final div h1{
+    font-size: 80;
+}
+
+.final div p{
+    font-size: 80;
+}
+
+.final img{
+    width: 1000px;
+}

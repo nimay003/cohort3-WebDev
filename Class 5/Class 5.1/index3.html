@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Todo List</h1>
+    </div>
+
+    <div>
+        <ol id="todoParent">
+            <li id="todo1">
+                <span>Gym</span>
+                <button onclick="deleteTodo(1)">delete</button>
+                <input type="text" placeholder="Update"></input>
+                <button onclick="updateTodo(1)">Update</button>
+            </li>
+            <li id="todo2">
+                <span>Classes</span>
+                <button onclick="deleteTodo(2)">delete</button>
+                <input type="text" placeholder="Update">
+                <button onclick="updateTodo(2)">Update</button>
+            </li>        
+        </ol>
+    </div>
+
+    <div>
+        <input type="text" placeholder="Type Here"></input>
+        <button id="btnTodo" onclick="addTodo()">Add Todo</button>
+    </div>
+
+    <script>
+        function deleteTodo(num){
+            const element = document.getElementById("todo" + num);
+            element.parentNode.removeChild(element);
+            // document.getElementById("todoParent").removeChild(element);  
+        }
+
+        function updateTodo(num){
+            const element = document.getElementById("todo" + num);
+            const span = element.querySelector("span");
+            const input = element.querySelector("input");
+
+            span.innerText = input.value;
+            input.value = "";
+        }
+
+        function addTodo(){
+            const input = document.querySelector("div > input");
+            const value = input.value.trim();
+
+            if(value === "") return;
+
+            const todoList = document.getElementById("todoParent");
+            const allLi = todoList.getElementsByTagName("li");
+            let lastId = 0;
+
+            if (allLi.length > 0) {
+                const lastLi = allLi[allLi.length - 1];
+                lastId = parseInt(lastLi.id.replace("todo", ""));
+            }
+
+            const newId = lastId + 1;
+            
+            const newElement = document.createElement("li");
+            newElement.id = "todo" + newId;
+
+            newElement.innerHTML = `
+                <span>${value}</span>
+                <button onclick="deleteTodo(${newId})">delete</button>
+                <input type="text" placeholder="Update">
+                <button onclick="updateTodo(${newId})">Update</button>
+            `;
+
+            document.getElementById("todoParent").appendChild(newElement);
+            input.value = "";
+        }
+    </script>
+</body>
+</html>

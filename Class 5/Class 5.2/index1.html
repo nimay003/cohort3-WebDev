@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+            font-size: 50px;
+        }
+
+        ol{
+            margin: 0 100px;
+        }
+        
+        li{
+            display: flex;
+            justify-content:space-between;
+            padding: 10px 0;
+            list-style: circle;
+        }
+
+        .input{
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+    </style>
+</head> 
+<body>
+    <div>
+        <h1>Todo List</h1>
+    </div>
+
+    <div>
+        <ol>
+            <li id="work1">
+                <span>Go gym</span>
+                <button onclick="deleteList(1)">Delete</button>
+            </li>
+            <li id="work2">
+                <span>Go Class</span>
+                <button onclick="deleteList(2)">Delete</button>
+            </li>
+        </ol>
+    </div>
+
+    <div class="input">
+        <input type="text"></input>
+        <button onclick="addTodo()">Add Todo</button>
+    </div>
+
+    <script>
+        const todo = ["Go gym", "Go Class"];
+
+        function addTodo(){
+            if(document.querySelector("input").value === "") return true;
+            todo.push(document.querySelector("input").value);
+            render();
+            document.querySelector("input").value = "";
+        }
+
+        function deleteList(num){
+            todo.splice(num, 1);
+            render();
+        }
+
+        function render(){
+            document.querySelector("ol").innerHTML = "";
+            for(let i = 0; i < todo.length; i++){
+                const element = createTodoComponent(todo[i], i);
+                document.querySelector("ol").appendChild(element);
+            }
+        }
+
+        function createTodoComponent(todos, num){
+            const newElement = document.createElement("li");
+            newElement.id = `work${num}`;
+            newElement.innerHTML = `
+                <span>${todos}</span>
+                <button onclick="deleteList(${num})">Delete</button>
+            `;
+
+            return newElement;
+        }
+    </script>
+</body>
+</html>

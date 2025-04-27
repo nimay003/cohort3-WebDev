@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <ol>
+        <li>Gym</li>
+        <li>Take Class</li>
+    </ol>
+    <div>
+        <input type="text" placeholder="Add your todo here"></input>
+        <button id="btnTodo" onclick="addTodo()">Add Todo</button>
+    </div>
+
+    <script>
+        // var name = "NIMAY";
+        // console.log(name);
+        // console.log(document);
+        function addTodo(){
+            const inputElement = document.querySelector("input");
+            // const value = inputElement.value;
+            // console.log(value);
+
+            const increase = () => {
+                let num = 1;
+                setInterval(() => {
+                    document.querySelectorAll("li")[1].innerHTML = num;
+                    num++; 
+                }, 1000)
+            }
+            increase();
+
+            // document.querySelectorAll("li")[1].innerHTML = inputElement;
+        }
+    </script>
+</body>
+</html>

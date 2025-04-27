@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Changer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      background-color: white;
+    }
+
+    .main {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-section input {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+    }
+
+    .input-section button {
+      padding: 8px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .selection1 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      max-width: 600px;
+    }
+
+    .btn>button {
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      background-color: white;
+      border: 2px solid currentColor;
+      color: currentColor;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <!-- Input Section on Top -->
+    <div class="input-section">
+      <input type="text" id="colorInput" placeholder="Type Color Name" />
+      <button onclick="AddColor()">Add</button>
+    </div>
+
+    <!-- Color Buttons Container -->
+    <div class="selection1" id="buttonContainer">
+      <div class="black btn">
+        <button onclick="changeColor('black')">Black</button>
+      </div>
+      <div class="yellow btn">
+        <button onclick="changeColor('yellow')">Yellow</button>
+      </div>
+      <div class="green btn">
+        <button onclick="changeColor('green')">Green</button>
+      </div>
+      <div class="blue btn">
+        <button onclick="changeColor('blue')">Blue</button>
+      </div>
+      <div class="purple btn">
+        <button onclick="changeColor('purple')">Purple</button>
+      </div>
+      <div class="red btn">
+        <button onclick="changeColor('red')">Red</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function changeColor(colorName) {
+      document.body.style.backgroundColor = colorName;
+
+      const allBtns = document.querySelectorAll(".btn>button");
+      allBtns.forEach(btn => {
+        const parentColor = btn.parentElement.classList[0];
+        btn.style.backgroundColor = "white";
+        btn.style.color = parentColor;
+        btn.style.borderColor = parentColor;
+      });
+
+      const activeBtn = document.querySelector(`.${colorName}>button`);
+      if (activeBtn) {
+        activeBtn.style.backgroundColor = colorName;
+        activeBtn.style.color = "white";
+      }
+    }
+
+    function AddColor() {
+      const color = document.getElementById("colorInput").value.trim().toLowerCase();
+      if (!color) return;
+
+      const newDiv = document.createElement("div");
+      newDiv.classList.add(color, "btn");
+
+      const newBtn = document.createElement("button");
+      newBtn.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+      newBtn.onclick = () => changeColor(color);
+
+      newDiv.appendChild(newBtn);
+      document.getElementById("buttonContainer").appendChild(newDiv);
+      document.getElementById("colorInput").value = "";
+    }
+  </script>
+</body>
+
+</html>

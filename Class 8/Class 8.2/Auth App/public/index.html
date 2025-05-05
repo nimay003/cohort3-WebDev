@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Website</title>
+</head>
+<body>
+    <div id="main">
+        <div id="signup">
+            <h1>Signup</h1>
+            <input id="signup-username" type="text" name="username" placeholder="username">
+            <input id="signup-password" type="password" name="password" placeholder="password">
+            <button onclick="signup()">Submit</button>
+        </div>
+        <div class="signin">
+            <h1>Signin</h1>
+            <input id="signin-username" type="text" name="username" placeholder="username">
+            <input id="signin-password" type="password" name="password" placeholder="password">
+            <button onclick="signin()">Submit</button>
+        </div>
+        <div class="info">
+            <h1>User information</h1>
+            <div id="information"></div>
+        </div>
+        <div class="logout">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script>
+        async function signup(){
+            const username = document.getElementById("signup-username").value;
+            const password = document.getElementById("signup-password").value;
+
+            await axios.post("http://localhost:3000/signup", {
+                username : username,
+                password : password
+            });
+
+            alert("You are signed up");
+            document.getElementById("signup-username").value = "";
+            document.getElementById("signup-password").value = "";
+        };
+
+        async function signin(){
+            const username = document.getElementById("signin-username").value;
+            const password = document.getElementById("signin-password").value;
+
+            const response = await axios.post("http://localhost:3000/signin", {
+                username : username,
+                password : password
+            });
+
+            localStorage.setItem("token", response.data.token);
+
+            alert("Yor are signed in");
+            document.getElementById("signin-username").value = "";
+            document.getElementById("signin-password").value = "";
+        };
+
+        async function getInfo() {
+            const response = await axios.get("http://localhost:3000/me", {
+                headers: {
+                    token : localStorage.getItem("token")
+                }
+            });
+
+            document.getElementById("information").innerHTML = `
+                <h4>username => ${response.data.username}</h4>
+            `;
+        };
+
+        function logout(){
+            localStorage.removeItem("token");
+        }
+
+        getInfo();
+    </script>
+</body>
+</html>
